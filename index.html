@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Learn C1 Vocabulary</title>
+  <style>
+    body { font-family: sans-serif; padding: 30px; text-align: center; }
+    #word { font-size: 2em; margin: 20px 0; }
+    input { font-size: 1.2em; padding: 8px; width: 300px; }
+    button { padding: 10px 20px; font-size: 1em; margin-left: 10px; }
+    #result { margin-top: 20px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>English C1 Vocabulary Practice</h1>
+  <div id="word">Loading...</div>
+  <input type="text" id="input" placeholder="Nh?p nghia ti?ng Vi?t">
+  <button onclick="check()">Enter</button>
+  <div id="result"></div>
+
+  <script>
+    const words = [
+      { word: "paradox", meaning: "ngh?ch lý" },
+      { word: "hierarchy", meaning: "h? th?ng c?p b?c" },
+      { word: "autonomy", meaning: "quy?n t? tr?" },
+      { word: "coherent", meaning: "m?ch l?c" },
+      { word: "meticulous", meaning: "t? m?" },
+      // thêm t? khác vào dây nha
+    ];
+
+    let currentIndex = 0;
+    let wrongList = [];
+
+    function showWord() {
+      document.getElementById("word").innerText = words[currentIndex].word;
+      document.getElementById("input").value = '';
+      document.getElementById("result").innerText = '';
+    }
+
+    function check() {
+      const userInput = document.getElementById("input").value.trim();
+      const correctMeaning = words[currentIndex].meaning;
+
+      if (userInput.includes(correctMeaning.slice(0, 3))) {
+        document.getElementById("result").innerText = "? Ðúng r?i!";
+      } else {
+        document.getElementById("result").innerText = "? Sai r?i!";
+        wrongList.push(words[currentIndex]);
+      }
+
+      currentIndex++;
+      if (currentIndex < words.length) {
+        setTimeout(showWord, 1000);
+      } else {
+        setTimeout(() => {
+          document.getElementById("word").innerText = "Hoàn t?t!";
+          document.getElementById("input").style.display = "none";
+          document.querySelector("button").style.display = "none";
+          document.getElementById("result").innerText = `Sai ${wrongList.length} t?`;
+        }, 1000);
+      }
+    }
+
+    showWord();
+  </script>
+</body>
+</html>
